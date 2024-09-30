@@ -14,9 +14,10 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $user = new User;
+        $user->status = 'Activo';
         $user->fullname = 'Jhon Wick';
         $user->gender = 'Male';
-        $user->photo = '../../public/images/santiago.png';
+        $user->photo = fake()->image(public_path('images/'), 140, 140, null, false);
         $user->phone = '3257852148';
         $user->address = 'Carrera 12 B # 45-21';
         $user->email = 'scubides58@soy.sena.edu.co';

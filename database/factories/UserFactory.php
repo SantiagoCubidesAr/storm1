@@ -24,8 +24,10 @@ class UserFactory extends Factory
     public function definition(): array
     {
         $gender = fake()->randomElement(array ('Female', 'Male'));
+        $status = fake()->randomElement(array ('Activo', 'Inactivo'));
         $photo = fake()->image(public_path('images/'), 140, 140, null, false);
         return [
+            'status' => $status,
             'fullname' => fake()->name(),
             'gender' => $gender,
             'photo' => $photo,
@@ -33,7 +35,7 @@ class UserFactory extends Factory
             'phone' => fake()->phoneNumber(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => static::$password ??= Hash::make('12345'),
             'remember_token' => Str::random(10),
         ];
     }

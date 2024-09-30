@@ -42,7 +42,7 @@
                  </div>
                  <div class="flex-grow-1">
                    <span class="fw-semibold d-block">{{ Auth::user()->fullname }}</span>
-                   <small class="text-muted">{{ auth()->user()->roles->first()->name or 'Sin rol asignado' }}</small>
+                   <small class="text-muted"></small>
                  </div>
                </div>
              </a>
