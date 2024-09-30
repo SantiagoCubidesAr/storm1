@@ -31,7 +31,6 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'fullname' => ['required', 'string', 'unique:'.User::class],
-            'status' => ['required', 'string'],
             'gender' => ['required', 'string'],
             'photo' => ['required', 'image'],
             'phone' => ['required', 'string'],

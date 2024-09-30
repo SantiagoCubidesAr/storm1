@@ -130,26 +130,35 @@
                         <h4 class="mb-2">Tu aventura empieza aquí 🚀</h4>
                         <p class="mb-4">Hazlo mas facil y divertido</p>
 
-                        <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+                        <form id="formAuthentication" class="mb-3" action="{{ route('register')}}" method="POST">
+                            @csrf
+                            @if(count($errors->all()) > 0)
+                            @foreach($errors->all() as $message)
+                            <li>{{$message}}</li>
+                            @endforeach
+                            @endif
                             <div class="card-body">
                                 <div class="d-flex align-items-start align-items-sm-center gap-4">
                                     <img
-                                        src=""
+                                        src="{{ asset('images/no-photo.png') }}"
                                         alt="user-avatar"
                                         class="d-block rounded"
                                         height="100"
                                         width="100"
                                         id="uploadedAvatar" />
-                                    <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                                        <span class="d-none d-sm-block"></span>
-                                        <i class="bx bx-upload d-block d-sm-none"></i>
-                                        <input
-                                            type="file"
-                                            id="upload"
-                                            class="account-file-input"
-                                            hidden
-                                            accept="image/png, image/jpeg" />
-                                    </label>
+                                    <div class="button-wrapper">
+                                        <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                            <span class="d-none d-sm-block">Subir foto</span>
+                                            <i class="bx bx-upload d-block d-sm-none"></i>
+                                            <input
+                                                type="file"
+                                                id="upload"
+                                                class="account-file-input"
+                                                hidden
+                                                name="photo"
+                                                accept="image/*" />
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -183,7 +192,7 @@
                                 <label for="email" class="form-label">Telefono</label>
                                 <input type="text" class="form-control" id="email" name="phone" placeholder="Enter your email" />
                                 <label for="email" class="form-label">Dirección</label>
-                                <input type="text" class="form-control" id="email" name="direccion" placeholder="Enter your email" />
+                                <input type="text" class="form-control" id="email" name="address" placeholder="Enter your email" />
                                 <label for="email" class="form-label">Email</label>
                                 <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
                             </div>
@@ -207,7 +216,7 @@
                                         type="password"
                                         id="password"
                                         class="form-control"
-                                        name="password"
+                                        name="password_confirmation"
                                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                         aria-describedby="password" />
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
@@ -257,7 +266,7 @@
     <script src="../assets/js/main.js"></script>
 
     <!-- Page JS -->
-
+    <script src="../assets/js/pages-account-settings-account.js"></script>
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
