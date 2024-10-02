@@ -130,7 +130,7 @@
                         <h4 class="mb-2">Tu aventura empieza aquí 🚀</h4>
                         <p class="mb-4">Hazlo mas facil y divertido</p>
 
-                        <form id="formAuthentication" class="mb-3" action="{{ route('register')}}" method="POST">
+                        <form id="formAuthentication" class="mb-3" action="{{ route('register')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @if(count($errors->all()) > 0)
                             @foreach($errors->all() as $message)
