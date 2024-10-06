@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -23,8 +25,8 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        $gender = fake()->randomElement(array ('Female', 'Male'));
-        $status = fake()->randomElement(array ('Activo', 'Inactivo'));
+        $gender = fake()->randomElement(array('Female', 'Male'));
+        $status = fake()->randomElement(array('Activo', 'Inactivo'));
         $photo = fake()->image(public_path('images/'), 140, 140, null, false);
         return [
             'status' => $status,
@@ -40,12 +42,20 @@ class UserFactory extends Factory
         ];
     }
 
+    public function configure(): self
+    {
+        return $this->afterCreating(function (User $user) {
+            $role = Role::factory()->create(['name' => fake()->randomElement(array('Conductor', 'Menor', 'Administrador', 'Tutor'))]);
+            $user->roles()->attach($role->id);
+        });
+    }
+
     /**
      * Indicate that the model's email address should be unverified.
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }
