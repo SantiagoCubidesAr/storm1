@@ -21,7 +21,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return view('students.show')->with('user', $user);
+        return view('administrators.show')->with('user', $user);
     }
 
     // public function edit(User $user)
@@ -31,7 +31,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('students.edit')->with('user', $user);
+        return view('administrators.edit')->with('user', $user);
     }
 
     /**
@@ -57,7 +57,7 @@ class UserController extends Controller
             $user->email = $request->email;
 
         if ($user->save()) {
-            return redirect('users')->with('message', 'The user: '. $user->fullname. 'was successfully updated!');
+            return redirect('administrators')->with('message', 'The user: '. $user->fullname. 'was successfully updated!');
         }
     }
 }

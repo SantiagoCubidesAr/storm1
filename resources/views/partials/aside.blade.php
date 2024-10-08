@@ -72,8 +72,8 @@
 
       <ul class="menu-sub">
         <li class="menu-item">
-          <a href="estudiantes.html" class="menu-link">
-            <div data-i18n="Without menu">Estudiantes</div>
+          <a href="{{ url('dashboard') }}" class="menu-link">
+            <div data-i18n="Without menu">Administradores</div>
           </a>
         </li>
         <li class="menu-item">
@@ -88,12 +88,7 @@
         </li>
         <li class="menu-item">
           <a href="layouts-fluid.html" class="menu-link">
-            <div data-i18n="Fluid">Instituciones</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="layouts-blank.html" class="menu-link">
-            <div data-i18n="Blank">Administradores</div>
+            <div data-i18n="Fluid">Estudiantes</div>
           </a>
         </li>
       </ul>
