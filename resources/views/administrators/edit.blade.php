@@ -19,43 +19,48 @@
 
         <h5 class="card-header">Detalles Estudiante</h5>
 
-        <div class="card-body">
-            <div class="d-flex align-items-start align-items-sm-center gap-4">
-                <img
-                    src="{{ asset('images'). '/' . $user->photo }}"
-                    alt="user-avatar"
-                    class="d-block rounded"
-                    height="100"
-                    width="100"
-                    id="uploadedAvatar" />
-                <div class="button-wrapper">
-                    <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                        <span class="d-none d-sm-block">Actualizar Foto</span>
-                        <i class="bx bx-upload d-block d-sm-none"></i>
-                        <input
-                            type="file"
-                            id="upload"
-                            class="account-file-input"
-                            hidden
-                            accept="image/png, image/jpeg" />
-                    </label>
-                    <p class="text-muted mb-0">Permite JPG, GIF o PNG. Tamaño Maximo de 800K</p>
-                </div>
-            </div>
-        </div>
+
 
         <div class="card-body">
-            <form action="{{ url('students/' .$user->id)}}" id="formAccountSettings" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('administrators/' .$user->id)}}" id="formAccountSettings" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="row">
-                    <div class="mb-3 col-md-6">
-                        <label for="firstName" class="form-label">Full Name</label>
-                        <input class="form-control" type="text" id="firstName" name="fullname" value="{{ $user->fullname }}">
+                    <div class="card-body">
+                        <div class="d-flex align-items-start align-items-sm-center gap-4">
+                            <img
+                                src="{{ asset('images'). '/' . $user->photo }}"
+                                alt="user-avatar"
+                                class="d-block rounded"
+                                height="100"
+                                width="100"
+                                id="uploadedAvatar" />
+                            <div class="button-wrapper">
+                                <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                    <span class="d-none d-sm-block">Actualizar Foto</span>
+                                    <i class="bx bx-upload d-block d-sm-none"></i>
+                                    <input
+                                        type="file"
+                                        id="upload"
+                                        class="account-file-input"
+                                        hidden
+                                        accept="image/png, image/jpeg" />
+                                </label>
+                                <p class="text-muted mb-0">Permite JPG, GIF o PNG. Tamaño Maximo de 800K</p>
+                            </div>
+                        </div>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label for="lastName" class="form-label">Estado</label>
-                        <input class="form-control" type="text" name="status" id="lastName" value="{{ $user->status }}">
+                        <label for="firstName" class="form-label">Roles</label>
+                        <input class="form-control" type="text" id="firstName" name="fullname" value="{{ old('name', $user->roles->first()->name ) }}">
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label for="firstName" class="form-label">Estado</label>
+                        <input class="form-control" type="text" id="firstName" name="fullname" value="{{ old('status', $user->status) }}">
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label for="firstName" class="form-label">Full Name</label>
+                        <input class="form-control" type="text" id="firstName" name="fullname" value="{{ old('fullname', $user->fullname) }}">
                     </div>
                     <div class="mb-3 col-md-6">
                         <label for="organization" class="form-label">Gender</label>

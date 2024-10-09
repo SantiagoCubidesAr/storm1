@@ -51,8 +51,8 @@
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{ url('students/' . $user->id) }}"><i class="bx bx-show me-1"></i> Ver</a>
-                                            <a class="dropdown-item" href="{{ url('students/' . $user->id . '/edit') }}"><i class="bx bx-edit-alt me-1"></i> Actualizar</a>
+                                            <a class="dropdown-item" href="{{ url('administrators/' . $user->id) }}"><i class="bx bx-show me-1"></i> Ver</a>
+                                            <a class="dropdown-item" href="{{ url('administrators/' . $user->id . '/edit') }}"><i class="bx bx-edit-alt me-1"></i> Actualizar</a>
                                             <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i>Eliminar</a>
                                         </div>
                                     </div>
