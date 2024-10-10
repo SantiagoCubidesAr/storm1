@@ -19,6 +19,9 @@
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Usuarios /</span> Administradores</h4>
 
+            <div class="d-flex justify-content-center mb-3">
+                    <a href="{{ url('administrators/create') }}" class="btn btn-primary">+ Add Administrator</a>
+            </div>
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <h5 class="card-header">Administradores</h5>

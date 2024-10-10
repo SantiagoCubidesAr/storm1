@@ -43,6 +43,7 @@
                                         type="file"
                                         id="upload"
                                         class="account-file-input"
+                                        name="photo"
                                         hidden
                                         accept="image/png, image/jpeg" />
                                 </label>
@@ -56,7 +57,7 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <label for="firstName" class="form-label">Estado</label>
-                        <input class="form-control" type="text" id="firstName" name="fullname" value="{{ old('status', $user->status) }}">
+                        <input class="form-control" type="text" id="firstName" name="status" value="{{ old('status', $user->status) }}">
                     </div>
                     <div class="mb-3 col-md-6">
                         <label for="firstName" class="form-label">Full Name</label>
@@ -64,21 +65,21 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <label for="organization" class="form-label">Gender</label>
-                        <input type="text" class="form-control" id="organization" name="gender" value="{{ $user->gender }}">
+                        <input type="text" class="form-control" id="organization" name="gender" value="{{ old('gender', $user->gender) }}">
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="phoneNumber">Phone Number</label>
                         <div class="input-group input-group-merge">
-                            <input type="text" id="phoneNumber" name="phone" class="form-control" value="{{ $user->phone }}">
+                            <input type="text" id="phoneNumber" name="phone" class="form-control" value="{{ old('phone', $user->phone) }}">
                         </div>
                     </div>
                     <div class="mb-3 col-md-6">
                         <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" name="address" value="{{ $user->address }}">
+                        <input type="text" class="form-control" id="address" name="address" value="{{ old('address', $user->address) }}">
                     </div>
                     <div class="mb-3 col-md-6">
                         <label for="state" class="form-label">Email</label>
-                        <input class="form-control" type="email" id="state" name="email" value="{{ $user->email }}">
+                        <input class="form-control" type="email" id="state" name="email" value="{{ old('email', $user->email) }}">
                     </div>
                     <div class="mt-2">
                         <button type="submit" class="btn btn-primary me-2">Guardar Cambios</button>
