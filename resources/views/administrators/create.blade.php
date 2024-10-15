@@ -20,43 +20,111 @@
         <h5 class="card-header">Studnet Details</h5>
 
         <div class="card-body">
-            <div class="d-flex align-items-start align-items-sm-center gap-4">
-                <img src="{{ asset('images/' . $user->photo) }}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
-            </div>
-        </div>
-
-        <div class="card-body">
             <div class="row">
-                <div class="mb-3 col-md-6">
-                    <label for="firstName" class="form-label">Roles</label>
-                    <input class="form-control" type="text" id="firstName" name="fullname" value="{{ $user->roles->first()->name }}" readonly>
-                </div>
-                <div class="mb-3 col-md-6">
-                    <label for="firstName" class="form-label">Full Name</label>
-                    <input class="form-control" type="text" id="firstName" name="fullname" value="{{ $user->fullname }}" readonly>
-                </div>
-                <div class="mb-3 col-md-6">
-                    <label for="lastName" class="form-label">Estado</label>
-                    <input class="form-control" type="text" name="status" id="lastName" value="{{ $user->status }}" readonly>
-                </div>
-                <div class="mb-3 col-md-6">
-                    <label for="organization" class="form-label">Gender</label>
-                    <input type="text" class="form-control" id="organization" name="gender" value="{{ $user->gender }}" readonly>
-                </div>
-                <div class="mb-3 col-md-6">
-                    <label class="form-label" for="phoneNumber">Phone Number</label>
-                    <div class="input-group input-group-merge">
-                        <input type="text" id="phoneNumber" name="phone" class="form-control" value="{{ $user->phone }}" readonly>
+                <form id="formAuthentication" class="mb-3" action="{{ route('register')}}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @if(count($errors->all()) > 0)
+                    @foreach($errors->all() as $message)
+                    <li>{{$message}}</li>
+                    @endforeach
+                    @endif
+                    <div class="card-body">
+                        <div class="d-flex align-items-start align-items-sm-center gap-4">
+                            <img
+                                src="{{ asset('images/no-photo.png') }}"
+                                alt="user-avatar"
+                                class="d-block rounded"
+                                height="100"
+                                width="100"
+                                id="uploadedAvatar" />
+                            <div class="button-wrapper">
+                                <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                    <span class="d-none d-sm-block">Subir foto</span>
+                                    <i class="bx bx-upload d-block d-sm-none"></i>
+                                    <input
+                                        type="file"
+                                        id="upload"
+                                        class="account-file-input"
+                                        hidden
+                                        name="photo"
+                                        accept="image/*" />
+                                </label>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="mb-3 col-md-6">
-                    <label for="address" class="form-label">Address</label>
-                    <input type="text" class="form-control" id="address" name="address" value="{{ $user->address }}" readonly>
-                </div>
-                <div class="mb-3 col-md-6">
-                    <label for="state" class="form-label">Email</label>
-                    <input class="form-control" type="email" id="state" name="email" value="{{ $user->email }}" readonly>
-                </div>
+                    <div class="mb-3">
+                        <label for="timeZones" class="form-label">Rol</label>
+                        <select id="timeZones" class="select2 form-select" name="role">
+                            <option value="conductor">Conductor</option>
+                            <option value="estudiante">Estudiante</option>
+                            <option value="tutor">Tutor</option>
+                            <option value="administrador">Administrador</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="timeZones" class="form-label">Genero</label>
+                        <select id="timeZones" class="select2 form-select" name="gender">
+                            <option value="male">Masculino</option>
+                            <option value="female">Femenino</option>
+                            <option value="other">Otro</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Nombre</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="username"
+                                name="fullname"
+                                placeholder="Enter your username"
+                                autofocus />
+                        </div>
+                        <label for="email" class="form-label">Telefono</label>
+                        <input type="text" class="form-control" id="email" name="phone" placeholder="Enter your email" />
+                        <label for="email" class="form-label">Dirección</label>
+                        <input type="text" class="form-control" id="email" name="address" placeholder="Enter your email" />
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
+                    </div>
+                    <div class="mb-3 form-password-toggle">
+                        <label class="form-label" for="password">Contraseña</label>
+                        <div class="input-group input-group-merge">
+                            <input
+                                type="password"
+                                id="password"
+                                class="form-control"
+                                name="password"
+                                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                aria-describedby="password" />
+                            <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                        </div>
+                    </div>
+                    <div class="mb-3 form-password-toggle">
+                        <label class="form-label" for="password">Verificar Contraseña</label>
+                        <div class="input-group input-group-merge">
+                            <input
+                                type="password"
+                                id="password"
+                                class="form-control"
+                                name="password_confirmation"
+                                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                aria-describedby="password" />
+                            <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
+                            <label class="form-check-label" for="terms-conditions">
+                                I agree to
+                                <a href="javascript:void(0);">privacy policy & terms</a>
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary d-grid w-100">Sign up</button>
+                </form>
             </div>
 
 

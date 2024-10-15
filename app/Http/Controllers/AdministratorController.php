@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AdministratorRequest;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
 class AdministratorController extends Controller
@@ -38,18 +39,17 @@ class AdministratorController extends Controller
         }
 
         $user = new User;
-        $user = new User;
-        $user->document = $request->document;
+        $user->status = $request->status;
         $user->fullname = $request->fullname;
         $user->gender = $request->gender;
-        $user->birthdate = $request->birthdate;
+        $user->address = $request->address;
         $user->photo = $photo;
         $user->phone = $request->phone;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
 
         if ($user->save()) {
-            return redirect('users')->with('message', 'The user: ' . $user->fullname . 'was successfully added');
+            return redirect('administrators')->with('message', 'The user: ' . $user->fullname . 'was successfully added');
         }
     }
 
@@ -72,7 +72,7 @@ class AdministratorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(AdministratorRequest $request, User $user)
     {
         if ($request->hasFile('photo')) {
             if ($request->hasFile('photo')) {
@@ -92,7 +92,7 @@ class AdministratorController extends Controller
         $user->email = $request->email;
 
         if ($user->save()) {
-            return redirect('administrators')->with('message', 'The user: ' . $user->fullname . 'was successfully updated!');
+            return redirect('dashboard')->with('message', 'The user: ' . $user->fullname . 'was successfully updated!');
         }
     }
 }

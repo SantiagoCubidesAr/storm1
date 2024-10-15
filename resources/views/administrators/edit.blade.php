@@ -53,7 +53,7 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <label for="firstName" class="form-label">Roles</label>
-                        <input class="form-control" type="text" id="firstName" name="fullname" value="{{ old('name', $user->roles->first()->name ) }}">
+                        <input class="form-control" type="text" id="firstName" name="name" value="{{ old('name', $user->roles->first()->name ) }}">
                     </div>
                     <div class="mb-3 col-md-6">
                         <label for="firstName" class="form-label">Estado</label>

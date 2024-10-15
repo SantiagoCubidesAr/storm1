@@ -12,7 +12,7 @@ class AdministratorRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -28,7 +28,7 @@ class AdministratorRequest extends FormRequest
                 'status'   => 'required|string',
                 'gender'   => 'required|string',
                 'phone'    => 'required',
-                'address'  => 'required|date',
+                'address'  => 'required|string',
                 'email'    => 'required|string|lowercase|email|unique:users,email,'.$this->id,
 
             ];
