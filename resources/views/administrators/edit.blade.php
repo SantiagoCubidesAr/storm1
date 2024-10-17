@@ -19,12 +19,15 @@
 
         <h5 class="card-header">Detalles Estudiante</h5>
 
-
-
         <div class="card-body">
             <form action="{{ url('administrators/' .$user->id)}}" id="formAccountSettings" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
+                @if(count($errors->all()) > 0)
+                @foreach($errors->all() as $message)
+                <li>{{$message}}</li>
+                @endforeach
+                @endif
                 <div class="row">
                     <div class="card-body">
                         <div class="d-flex align-items-start align-items-sm-center gap-4">
@@ -46,6 +49,7 @@
                                         name="photo"
                                         hidden
                                         accept="image/png, image/jpeg" />
+                                        <input type="hidden" name="originphoto" value="{{ $user->photo }}">
                                 </label>
                                 <p class="text-muted mb-0">Permite JPG, GIF o PNG. Tamaño Maximo de 800K</p>
                             </div>

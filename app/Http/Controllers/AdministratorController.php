@@ -29,7 +29,7 @@ class AdministratorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AdministratorRequest $request)
+    public function store(Request $request)
     {
         //dd($request->all());
 
@@ -39,7 +39,6 @@ class AdministratorController extends Controller
         }
 
         $user = new User;
-        $user->status = $request->status;
         $user->fullname = $request->fullname;
         $user->gender = $request->gender;
         $user->address = $request->address;
@@ -72,8 +71,9 @@ class AdministratorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(AdministratorRequest $request, User $user)
+    public function update(AdministratorRequest $request, $id)
     {
+        $user = User::findOrFail($id);
         if ($request->hasFile('photo')) {
             if ($request->hasFile('photo')) {
                 $photo = time() . '.' . $request->photo->extension();
@@ -83,16 +83,28 @@ class AdministratorController extends Controller
             $photo = $request->originphoto;
         }
 
-        $user->status = $request->status;
-        $user->fullname = $request->fullname;
-        $user->gender = $request->gender;
-        $user->address = $request->address;
-        $user->photo = $photo;
-        $user->phone = $request->phone;
-        $user->email = $request->email;
+        $user->update([
+            'status' => $request->status,
+            'fullname' => $request->fullname,
+            'gender' => $request->gender,
+            'address' => $request->address,
+            'photo' => $photo,
+            'phone' => $request->phone,
+            'email' => $request->email
+        ]);
+        // $user->status = $request->status;
+        // $user->fullname = $request->fullname;
+        // $user->gender = $request->gender;
+        // $user->address = $request->address;
+        // $user->photo = $photo;
+        // $user->phone = $request->phone;
+        // $user->email = $request->email;
+        // $user->password = $user->password;
 
-        if ($user->save()) {
-            return redirect('dashboard')->with('message', 'The user: ' . $user->fullname . 'was successfully updated!');
-        }
+        // if ($user->save()) {
+        //     return redirect('dashboard')->with('message', 'The user: ' . $user->fullname . 'was successfully updated!');
+        // }
+        return redirect('dashboard')->with('message', 'The user: ' . $user->fullname . 'was successfully updated!');
+
     }
 }

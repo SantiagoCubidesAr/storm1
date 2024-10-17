@@ -21,7 +21,7 @@
 
         <div class="card-body">
             <div class="row">
-                <form id="formAuthentication" class="mb-3" action="{{ route('register')}}" method="POST" enctype="multipart/form-data">
+                <form id="formAuthentication" class="mb-3" action="{{ route('administrators.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @if(count($errors->all()) > 0)
                     @foreach($errors->all() as $message)
@@ -55,10 +55,10 @@
                     <div class="mb-3">
                         <label for="timeZones" class="form-label">Rol</label>
                         <select id="timeZones" class="select2 form-select" name="role">
-                            <option value="conductor">Conductor</option>
-                            <option value="estudiante">Estudiante</option>
-                            <option value="tutor">Tutor</option>
-                            <option value="administrador">Administrador</option>
+                            <option value="Conductor">Conductor</option>
+                            <option value="Estudiante">Estudiante</option>
+                            <option value="Tutor">Tutor</option>
+                            <option value="Administrador">Administrador</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -123,7 +123,7 @@
                             </label>
                         </div>
                     </div>
-                    <button class="btn btn-primary d-grid w-100">Sign up</button>
+                    <button class="btn btn-primary d-grid w-100">Agregar Administrador</button>
                 </form>
             </div>
 

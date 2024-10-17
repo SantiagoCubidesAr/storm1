@@ -24,12 +24,12 @@ class AdministratorRequest extends FormRequest
     {
         if ($this->method() === 'PUT') {
             return [
-                'fullname' => 'required|string|unique:users,fullname,'. $this->id,
+                'fullname' => 'required|string',
                 'status'   => 'required|string',
                 'gender'   => 'required|string',
                 'phone'    => 'required',
                 'address'  => 'required|string',
-                'email'    => 'required|string|lowercase|email|unique:users,email,'.$this->id,
+                'email'    => 'required|string|lowercase|email',
 
             ];
         } else {
