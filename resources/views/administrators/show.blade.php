@@ -37,11 +37,11 @@
                 </div>
                 <div class="mb-3 col-md-6">
                     <label for="lastName" class="form-label">Estado</label>
-                    <input class="form-control" type="text" name="status" id="lastName" value="{{ $user->status }}" readonly>
+                    <input class="form-control" type="text" name="status" id="lastName" value="{{ $user->status->status }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label for="organization" class="form-label">Gender</label>
-                    <input type="text" class="form-control" id="organization" name="gender" value="{{ $user->gender }}" readonly>
+                    <input type="text" class="form-control" id="organization" name="gender" value="{{ $user->genders->gender }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="phoneNumber">Phone Number</label>

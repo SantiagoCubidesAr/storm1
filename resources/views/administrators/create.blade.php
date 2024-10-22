@@ -30,62 +30,43 @@
                     @endif
                     <div class="card-body">
                         <div class="d-flex align-items-start align-items-sm-center gap-4">
-                            <img
-                                src="{{ asset('images/no-photo.png') }}"
-                                alt="user-avatar"
-                                class="d-block rounded"
-                                height="100"
-                                width="100"
-                                id="uploadedAvatar" />
+                            <img src="{{ asset('images/no-photo.png') }}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
                             <div class="button-wrapper">
                                 <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
                                     <span class="d-none d-sm-block">Subir foto</span>
                                     <i class="bx bx-upload d-block d-sm-none"></i>
-                                    <input
-                                        type="file"
-                                        id="upload"
-                                        class="account-file-input"
-                                        hidden
-                                        name="photo"
-                                        accept="image/*" />
+                                    <input type="file" id="upload" class="account-file-input" hidden name="photo" accept="image/*" />
                                 </label>
                             </div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="timeZones" class="form-label">Rol</label>
-                        <select id="timeZones" class="select2 form-select" name="role">
-                            <option value="Conductor">Conductor</option>
-                            <option value="Estudiante">Estudiante</option>
-                            <option value="Tutor">Tutor</option>
-                            <option value="Administrador">Administrador</option>
+                        <select id="timeZones" class="select2 form-select" name="name">
+                            @foreach($roles as $role)"
+                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
                         <label for="timeZones" class="form-label">Genero</label>
                         <select id="timeZones" class="select2 form-select" name="gender">
-                            <option value="male">Masculino</option>
-                            <option value="female">Femenino</option>
-                            <option value="other">Otro</option>
+                            @foreach($genders as $gender)"
+                            <option value="{{ $gender->id }}">{{ $gender->gender }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
                         <div class="mb-3">
                             <label for="username" class="form-label">Nombre</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="username"
-                                name="fullname"
-                                placeholder="Enter your username"
-                                autofocus />
+                            <input type="text" class="form-control" id="username" name="fullname" placeholder="Enter your username" autofocus />
                         </div>
                         <label for="email" class="form-label">Telefono</label>
-                        <input type="text" class="form-control" id="email" name="phone" placeholder="Enter your email" />
+                        <input type="number" class="form-control" id="email" name="phone" placeholder="Enter your email" />
                         <label for="email" class="form-label">Dirección</label>
                         <input type="text" class="form-control" id="email" name="address" placeholder="Enter your email" />
                         <label for="email" class="form-label">Email</label>
-                        <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" />
                     </div>
                     <div class="mb-3 form-password-toggle">
                         <label class="form-label" for="password">Contraseña</label>

@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('status')->default('Active');
             $table->string('fullname');
-            $table->string('gender');
+            $table->foreignId('id_gender')
+                ->constrained('genders')
+                ->onDelete('cascade');
+            $table->foreignId('id_status')
+                ->constrained('statuses')
+                ->onDelete('cascade');
             $table->string('photo');
             $table->string('phone');
             $table->string('address');

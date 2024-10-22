@@ -19,7 +19,7 @@ class User extends Authenticatable
     protected $fillable = [
         'status',
         'fullname',
-        'gender',
+        'id_gender',
         'photo',
         'phone',
         'address',
@@ -52,5 +52,13 @@ class User extends Authenticatable
 
     public function roles() {
         return $this->belongsToMany(Role::class);
+    }
+
+    public function genders() {
+        return $this->belongsTo(Gender::class, 'id_gender');
+    }
+
+    public function status() {
+        return $this->belongsTo(Status::class, 'id_status');
     }
 }

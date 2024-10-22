@@ -47,7 +47,7 @@
                                         </li>
                                     </ul>
                                 </td>
-                                <td><span class="badge bg-label-primary me-1">{{$user->status}}</span></td>
+                                <td><span class="badge bg-label-primary me-1">{{$user->status->status}}</span></td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">

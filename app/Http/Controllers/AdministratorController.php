@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AdministratorRequest;
+use App\Models\Gender;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -22,7 +24,9 @@ class AdministratorController extends Controller
 
     public function create()
     {
-        return view('administrators.create');
+        $roles = Role::all();
+        $genders = Gender::all();
+        return view('administrators.create')->with('roles', $roles)->with('genders', $genders);
     }
 
     /**
@@ -31,6 +35,7 @@ class AdministratorController extends Controller
     public function store(Request $request)
     {
         //dd($request->all());
+        $role = Role::find($request->name);
 
         if ($request->hasFile('photo')) {
             $photo = time() . '.' . $request->photo->extension();
@@ -44,6 +49,7 @@ class AdministratorController extends Controller
         $user->photo = $photo;
         $user->phone = $request->phone;
         $user->email = $request->email;
+        $user->roles()->attach($role);
         $user->password = bcrypt($request->password);
 
         if ($user->save()) {

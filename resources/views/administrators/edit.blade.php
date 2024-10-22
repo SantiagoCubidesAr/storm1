@@ -61,7 +61,7 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <label for="firstName" class="form-label">Estado</label>
-                        <input class="form-control" type="text" id="firstName" name="status" value="{{ old('status', $user->status) }}">
+                        <input class="form-control" type="text" id="firstName" name="status" value="{{ old('status', $user->status->status) }}">
                     </div>
                     <div class="mb-3 col-md-6">
                         <label for="firstName" class="form-label">Full Name</label>
@@ -69,7 +69,7 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <label for="organization" class="form-label">Gender</label>
-                        <input type="text" class="form-control" id="organization" name="gender" value="{{ old('gender', $user->gender) }}">
+                        <input type="text" class="form-control" id="organization" name="gender" value="{{ old('gender', $user->genders->gender) }}">
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="phoneNumber">Phone Number</label>
