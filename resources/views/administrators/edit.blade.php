@@ -49,27 +49,39 @@
                                         name="photo"
                                         hidden
                                         accept="image/png, image/jpeg" />
-                                        <input type="hidden" name="originphoto" value="{{ $user->photo }}">
+                                    <input type="hidden" name="originphoto" value="{{ $user->photo }}">
                                 </label>
                                 <p class="text-muted mb-0">Permite JPG, GIF o PNG. Tamaño Maximo de 800K</p>
                             </div>
                         </div>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label for="firstName" class="form-label">Roles</label>
-                        <input class="form-control" type="text" id="firstName" name="name" value="{{ old('name', $user->roles->first()->name ) }}">
+                        <label for="timeZones" class="form-label">Rol</label>
+                        <select id="timeZones" class="select2 form-select" name="name">
+                            @foreach($roles as $role)"
+                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label for="firstName" class="form-label">Estado</label>
-                        <input class="form-control" type="text" id="firstName" name="status" value="{{ old('status', $user->status->status) }}">
+                    <label for="timeZones" class="form-label">Estado</label>
+                        <select id="timeZones" class="select2 form-select" name="gender">
+                            @foreach($status as $status)"
+                            <option value="{{ $status->id }}">{{ $status->status }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="mb-3 col-md-6">
                         <label for="firstName" class="form-label">Full Name</label>
                         <input class="form-control" type="text" id="firstName" name="fullname" value="{{ old('fullname', $user->fullname) }}">
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label for="organization" class="form-label">Gender</label>
-                        <input type="text" class="form-control" id="organization" name="gender" value="{{ old('gender', $user->genders->gender) }}">
+                        <label for="timeZones" class="form-label">Genero</label>
+                        <select id="timeZones" class="select2 form-select" name="gender">
+                            @foreach($genders as $gender)"
+                            <option value="{{ $gender->id }}">{{ $gender->gender }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="phoneNumber">Phone Number</label>

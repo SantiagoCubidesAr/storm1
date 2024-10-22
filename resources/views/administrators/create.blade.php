@@ -50,9 +50,17 @@
                     </div>
                     <div class="mb-3">
                         <label for="timeZones" class="form-label">Genero</label>
-                        <select id="timeZones" class="select2 form-select" name="gender">
+                        <select id="timeZones" class="select2 form-select" name="id_gender">
                             @foreach($genders as $gender)"
                             <option value="{{ $gender->id }}">{{ $gender->gender }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="timeZones" class="form-label">Estado</label>
+                        <select id="timeZones" class="select2 form-select" name="id_status">
+                            @foreach($status as $status)"
+                            <option value="{{ $status->id }}">{{ $status->status }}</option>
                             @endforeach
                         </select>
                     </div>

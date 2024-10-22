@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AdministratorRequest;
 use App\Models\Gender;
 use App\Models\Role;
+use App\Models\Status;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -25,8 +26,9 @@ class AdministratorController extends Controller
     public function create()
     {
         $roles = Role::all();
+        $status = Status::all();
         $genders = Gender::all();
-        return view('administrators.create')->with('roles', $roles)->with('genders', $genders);
+        return view('administrators.create')->with('roles', $roles)->with('genders', $genders)->with('status', $status);
     }
 
     /**
@@ -44,7 +46,8 @@ class AdministratorController extends Controller
 
         $user = new User;
         $user->fullname = $request->fullname;
-        $user->gender = $request->gender;
+        $user->id_status = $request->id_status;
+        $user->id_gender = $request->id_gender;
         $user->address = $request->address;
         $user->photo = $photo;
         $user->phone = $request->phone;
@@ -69,8 +72,11 @@ class AdministratorController extends Controller
     // }
     public function edit($id)
     {
+        $roles = Role::all();
+        $status = Status::all();
+        $genders = Gender::all();
         $user = User::findOrFail($id);
-        return view('administrators.edit')->with('user', $user);
+        return view('administrators.edit')->with('user', $user)->with('roles', $roles)->with('genders', $genders)->with('status', $status);
     }
 
     /**
@@ -110,6 +116,5 @@ class AdministratorController extends Controller
         //     return redirect('dashboard')->with('message', 'The user: ' . $user->fullname . 'was successfully updated!');
         // }
         return redirect('dashboard')->with('message', 'The user: ' . $user->fullname . 'was successfully updated!');
-
     }
 }
