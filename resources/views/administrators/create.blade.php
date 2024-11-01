@@ -17,17 +17,17 @@
 
         <!-- Content -->
 
-        <h5 class="card-header">Studnet Details</h5>
+        <h5 class="card-header">Crear Administrador</h5>
 
         <div class="card-body">
-            <div class="row">
-                <form id="formAuthentication" class="mb-3" action="{{ route('administrators.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    @if(count($errors->all()) > 0)
-                    @foreach($errors->all() as $message)
-                    <li>{{$message}}</li>
-                    @endforeach
-                    @endif
+            <form id="formAuthentication" class="mb-3" action="{{ route('administrators.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @if(count($errors->all()) > 0)
+                @foreach($errors->all() as $message)
+                <li>{{$message}}</li>
+                @endforeach
+                @endif
+                <div class="row">
                     <div class="card-body">
                         <div class="d-flex align-items-start align-items-sm-center gap-4">
                             <img src="{{ asset('images/no-photo.png') }}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
@@ -40,23 +40,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 col-md-6">
                         <label for="timeZones" class="form-label">Rol</label>
-                        <select id="timeZones" class="select2 form-select" name="name">
-                            @foreach($roles as $role)"
-                            <option value="{{ $role->id }}">{{ $role->name }}</option>
-                            @endforeach
+                        <select id="timeZones" class="select2 form-select" name="role_id">
+                            <option value="1">Administrador</option>
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <label for="timeZones" class="form-label">Genero</label>
-                        <select id="timeZones" class="select2 form-select" name="id_gender">
-                            @foreach($genders as $gender)"
-                            <option value="{{ $gender->id }}">{{ $gender->gender }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="mb-3">
+                    <div class="mb-3 col-md-6">
                         <label for="timeZones" class="form-label">Estado</label>
                         <select id="timeZones" class="select2 form-select" name="id_status">
                             @foreach($status as $status)"
@@ -64,57 +54,46 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="username" name="fullname" placeholder="Enter your username" autofocus />
-                        </div>
-                        <label for="email" class="form-label">Telefono</label>
-                        <input type="number" class="form-control" id="email" name="phone" placeholder="Enter your email" />
-                        <label for="email" class="form-label">Dirección</label>
-                        <input type="text" class="form-control" id="email" name="address" placeholder="Enter your email" />
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" />
+                    <div class="mb-3 col-md-6">
+                        <label for="firstName" class="form-label">Full Name</label>
+                        <input class="form-control" type="text" id="firstName" name="fullname">
                     </div>
-                    <div class="mb-3 form-password-toggle">
-                        <label class="form-label" for="password">Contraseña</label>
+                    <div class="mb-3 col-md-6">
+                        <label for="timeZones" class="form-label">Genero</label>
+                        <select id="timeZones" class="select2 form-select" name="id_gender">
+                            @foreach($genders as $gender)"
+                            <option value="{{ $gender->id }}">{{ $gender->gender }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" for="phoneNumber">Phone Number</label>
                         <div class="input-group input-group-merge">
-                            <input
-                                type="password"
-                                id="password"
-                                class="form-control"
-                                name="password"
-                                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                aria-describedby="password" />
-                            <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                            <input type="text" id="phoneNumber" name="phone" class="form-control">
                         </div>
                     </div>
-                    <div class="mb-3 form-password-toggle">
-                        <label class="form-label" for="password">Verificar Contraseña</label>
-                        <div class="input-group input-group-merge">
-                            <input
-                                type="password"
-                                id="password"
-                                class="form-control"
-                                name="password_confirmation"
-                                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                aria-describedby="password" />
-                            <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                        </div>
+                    <div class="mb-3 col-md-6">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="address" name="address">
                     </div>
-
-                    <div class="mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
-                            <label class="form-check-label" for="terms-conditions">
-                                I agree to
-                                <a href="javascript:void(0);">privacy policy & terms</a>
-                            </label>
-                        </div>
+                    <div class="mb-3 col-md-6">
+                        <label for="state" class="form-label">Email</label>
+                        <input class="form-control" type="email" id="state" name="email">
                     </div>
-                    <button class="btn btn-primary d-grid w-100">Agregar Administrador</button>
-                </form>
-            </div>
+                    <div class="mb-3 col-md-6">
+                        <label for="state" class="form-label">Contraseña</label>
+                        <input class="form-control" type="text" id="state" name="password">
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label for="state" class="form-label">Verificar Contraseña</label>
+                        <input class="form-control" type="text" id="state" name="password_confirmation">
+                    </div>
+                    <div class="mt-2">
+                        <button type="submit" class="btn btn-primary me-2">Añadir Administrador</button>
+                        <a href="{{ url('dashboard')}}" class="btn btn-outline-secondary">Cancelar</a>
+                    </div>
+                </div>
+            </form>
 
 
             <!-- / Content -->

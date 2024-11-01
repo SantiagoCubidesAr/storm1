@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AdministratorRequest;
+use App\Models\Administrator;
 use App\Models\Gender;
 use App\Models\Role;
 use App\Models\Status;
@@ -14,8 +15,8 @@ class AdministratorController extends Controller
     //
     public function index()
     {
-        $users = User::all();
-        return view('dashboard')->with('users', $users);
+        $administrators = Administrator::with('user')->get();
+        return view('dashboard')->with('administrators', $administrators);
     }
 
     // public function show(User $user)
@@ -37,33 +38,36 @@ class AdministratorController extends Controller
     public function store(Request $request)
     {
         //dd($request->all());
-        $role = Role::find($request->name);
 
         if ($request->hasFile('photo')) {
             $photo = time() . '.' . $request->photo->extension();
             $request->photo->move(public_path('images'), $photo);
         }
 
-        $user = new User;
-        $user->fullname = $request->fullname;
-        $user->id_status = $request->id_status;
-        $user->id_gender = $request->id_gender;
-        $user->address = $request->address;
-        $user->photo = $photo;
-        $user->phone = $request->phone;
-        $user->email = $request->email;
-        $user->roles()->attach($role);
-        $user->password = bcrypt($request->password);
+        $administrator = new User;
+        $administrator->fullname = $request->fullname;
+        $administrator->id_status = $request->id_status;
+        $administrator->id_gender = $request->id_gender;
+        $administrator->address = $request->address;
+        $administrator->photo = $photo;
+        $administrator->phone = $request->phone;
+        $administrator->email = $request->email;
+        $administrator->password = bcrypt($request->password);
 
-        if ($user->save()) {
-            return redirect('administrators')->with('message', 'The user: ' . $user->fullname . 'was successfully added');
+        if ($administrator->save()) {
+            $role = Role::find($request->role_id);
+            $administrator->roles()->attach($role->id);
+            $administrator_id = new Administrator();
+            $administrator_id->user_id = $administrator->id;
+            $administrator_id->save();
+            return redirect('administrators')->with('message', 'The user: ' . $administrator->fullname . 'was successfully added');
         }
     }
 
     public function show($id)
     {
-        $user = User::findOrFail($id);
-        return view('administrators.show')->with('user', $user);
+        $administrator = Administrator::findOrFail($id);
+        return view('administrators.show')->with('administrator', $administrator);
     }
 
     // public function edit(User $user)
@@ -75,8 +79,8 @@ class AdministratorController extends Controller
         $roles = Role::all();
         $status = Status::all();
         $genders = Gender::all();
-        $user = User::findOrFail($id);
-        return view('administrators.edit')->with('user', $user)->with('roles', $roles)->with('genders', $genders)->with('status', $status);
+        $administrator = Administrator::findOrFail($id);
+        return view('administrators.edit')->with('administrator', $administrator)->with('roles', $roles)->with('genders', $genders)->with('status', $status);
     }
 
     /**
@@ -84,7 +88,7 @@ class AdministratorController extends Controller
      */
     public function update(AdministratorRequest $request, $id)
     {
-        $user = User::findOrFail($id);
+        $administrator = Administrator::findOrFail($id);
         if ($request->hasFile('photo')) {
             if ($request->hasFile('photo')) {
                 $photo = time() . '.' . $request->photo->extension();
@@ -94,10 +98,10 @@ class AdministratorController extends Controller
             $photo = $request->originphoto;
         }
 
-        $user->update([
-            'status' => $request->status,
+        $administrator->user->update([
             'fullname' => $request->fullname,
-            'gender' => $request->gender,
+            'id_status' => $request->id_status,
+            'id_gender' => $request->id_gender,
             'address' => $request->address,
             'photo' => $photo,
             'phone' => $request->phone,
@@ -115,6 +119,20 @@ class AdministratorController extends Controller
         // if ($user->save()) {
         //     return redirect('dashboard')->with('message', 'The user: ' . $user->fullname . 'was successfully updated!');
         // }
-        return redirect('dashboard')->with('message', 'The user: ' . $user->fullname . 'was successfully updated!');
+        return redirect('dashboard')->with('message', 'The user: ' . $administrator->fullname . 'was successfully updated!');
+    }
+
+    public function destroy($id)
+    {
+        $administrator = User::findOrFail($id);
+        if ($administrator->delete()) {
+            return redirect('dashboard')->with('message', 'The user:' . $administrator->fullname . 'was successfully deleted!');
+        }
+    }
+
+    public function search(Request $request)
+    {
+        $administrator = User::names($request->q)->paginate(20);
+        return view('administrators.search')->with('administrators', $administrator);
     }
 }

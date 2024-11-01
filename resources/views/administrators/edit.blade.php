@@ -20,7 +20,7 @@
         <h5 class="card-header">Detalles Estudiante</h5>
 
         <div class="card-body">
-            <form action="{{ url('administrators/' .$user->id)}}" id="formAccountSettings" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('administrators/' .$administrator->user->id)}}" id="formAccountSettings" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 @if(count($errors->all()) > 0)
@@ -32,7 +32,7 @@
                     <div class="card-body">
                         <div class="d-flex align-items-start align-items-sm-center gap-4">
                             <img
-                                src="{{ asset('images'). '/' . $user->photo }}"
+                                src="{{ asset('images'). '/' . $administrator->user->photo }}"
                                 alt="user-avatar"
                                 class="d-block rounded"
                                 height="100"
@@ -49,7 +49,7 @@
                                         name="photo"
                                         hidden
                                         accept="image/png, image/jpeg" />
-                                    <input type="hidden" name="originphoto" value="{{ $user->photo }}">
+                                    <input type="hidden" name="originphoto" value="{{ $administrator->user->photo }}">
                                 </label>
                                 <p class="text-muted mb-0">Permite JPG, GIF o PNG. Tamaño Maximo de 800K</p>
                             </div>
@@ -65,7 +65,7 @@
                     </div>
                     <div class="mb-3 col-md-6">
                     <label for="timeZones" class="form-label">Estado</label>
-                        <select id="timeZones" class="select2 form-select" name="gender">
+                        <select id="timeZones" class="select2 form-select" name="id_status">
                             @foreach($status as $status)"
                             <option value="{{ $status->id }}">{{ $status->status }}</option>
                             @endforeach
@@ -73,11 +73,11 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <label for="firstName" class="form-label">Full Name</label>
-                        <input class="form-control" type="text" id="firstName" name="fullname" value="{{ old('fullname', $user->fullname) }}">
+                        <input class="form-control" type="text" id="firstName" name="fullname" value="{{ old('fullname', $administrator->user->fullname) }}">
                     </div>
                     <div class="mb-3 col-md-6">
                         <label for="timeZones" class="form-label">Genero</label>
-                        <select id="timeZones" class="select2 form-select" name="gender">
+                        <select id="timeZones" class="select2 form-select" name="id_gender">
                             @foreach($genders as $gender)"
                             <option value="{{ $gender->id }}">{{ $gender->gender }}</option>
                             @endforeach
@@ -86,20 +86,20 @@
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="phoneNumber">Phone Number</label>
                         <div class="input-group input-group-merge">
-                            <input type="text" id="phoneNumber" name="phone" class="form-control" value="{{ old('phone', $user->phone) }}">
+                            <input type="text" id="phoneNumber" name="phone" class="form-control" value="{{ old('phone', $administrator->user->phone) }}">
                         </div>
                     </div>
                     <div class="mb-3 col-md-6">
                         <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" name="address" value="{{ old('address', $user->address) }}">
+                        <input type="text" class="form-control" id="address" name="address" value="{{ old('address', $administrator->user->address) }}">
                     </div>
                     <div class="mb-3 col-md-6">
-                        <label for="state" class="form-label">Email</label>
-                        <input class="form-control" type="email" id="state" name="email" value="{{ old('email', $user->email) }}">
+                        <label for="email" class="form-label">Email</label>
+                        <input class="form-control" type="email" id="email" name="email" value="{{ old('email', $administrator->user->email) }}">
                     </div>
                     <div class="mt-2">
                         <button type="submit" class="btn btn-primary me-2">Guardar Cambios</button>
-                        <button type="reset" class="btn btn-outline-secondary">Cancelar</button>
+                        <a href="{{ url('dashboard')}}" class="btn btn-outline-secondary">Cancelar</a>
                     </div>
             </form>
         </div>

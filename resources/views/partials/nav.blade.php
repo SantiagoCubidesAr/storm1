@@ -16,7 +16,9 @@
            type="text"
            class="form-control border-0 shadow-none"
            placeholder="Search..."
-           aria-label="Search..." />
+           aria-label="Search..."
+           name="qsearch"
+           id="qsearch"/>
        </div>
      </div>
      <!-- /Search -->

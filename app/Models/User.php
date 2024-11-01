@@ -54,11 +54,33 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
+    public function administrator() {
+        return $this->hasOne(Administrator::class);
+    }
+
+    public function driver() {
+        return $this->hasOne(Driver::class);
+    }
+
+    public function student() {
+        return $this->hasOne(Student::class);
+    }
+
+    public function tutor() {
+        return $this->hasOne(Tutor::class);
+    }
+
     public function genders() {
         return $this->belongsTo(Gender::class, 'id_gender');
     }
 
     public function status() {
         return $this->belongsTo(Status::class, 'id_status');
+    }
+
+    public function scopeNames($users, $q) {
+        if (trim($q)) {
+            $users->where('fullname', 'LIKE', "%$q%");
+        }
     }
 }

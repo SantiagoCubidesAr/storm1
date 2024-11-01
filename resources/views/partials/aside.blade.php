@@ -77,17 +77,17 @@
           </a>
         </li>
         <li class="menu-item">
-          <a href="tutores.html" class="menu-link">
+          <a href="{{ url('tutors') }}" class="menu-link">
             <div data-i18n="Without navbar">Tutores</div>
           </a>
         </li>
         <li class="menu-item">
-          <a href="conductores.html" class="menu-link">
+          <a href="{{ url('drivers') }}" class="menu-link">
             <div data-i18n="Container">Conductores</div>
           </a>
         </li>
         <li class="menu-item">
-          <a href="layouts-fluid.html" class="menu-link">
+          <a href="{{ url('students') }}" class="menu-link">
             <div data-i18n="Fluid">Estudiantes</div>
           </a>
         </li>

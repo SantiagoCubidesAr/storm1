@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Administrator;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
 use App\Models\User;
@@ -26,5 +27,9 @@ class UserSeeder extends Seeder
 
         $role = Role::where('name', 'Administrador')->first();
         $user->roles()->attach($role->id);
+        $administrator = new Administrator();
+        $administrator->user_id = $user->id;
+        $administrator->save();
+        
     }
 }

@@ -29,6 +29,46 @@
 
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
+<script src="{{ asset('js/jquery-3.7.1.min.js') }}"></script>
+<script src="{{ asset('js/sweetalert2.js') }}"></script>
+
+<script>
+    $('.delete').on('click', function() {
+            var $this = $(this);
+            var $fullname = $this.attr('data-fullname')
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "Desea eliminar a:" + $fullname,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $this.next().submit()
+                }
+            });
+        })
+
+        $('body').on('keyup', '#qsearch', function(e) {
+            e.preventDefault()
+            $query = $(this).val()
+            $token = $('input[name=_token]').val()
+            $model = 'administrators';
+
+
+            $.post($model + '/search', {
+                    q: $query,
+                    _token: $token
+                },
+                function(data) {
+                    $('.card').html(data)
+                }
+            )
+        })
+</script>
 </body>
 
 </html>
