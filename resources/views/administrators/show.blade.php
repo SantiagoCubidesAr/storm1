@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="card-body">
                     <div class="d-flex align-items-start align-items-sm-center gap-4">
-                        <img src="{{ asset('public/images/') . $administrator->user->photo }}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
+                        <img src="{{ url('images/'. $administrator->user->photo) }}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
                     </div>
                 </div>
                 <div class="mb-3 col-md-6">

@@ -32,7 +32,7 @@
                     <div class="card-body">
                         <div class="d-flex align-items-start align-items-sm-center gap-4">
                             <img
-                                src="{{ asset('images'). '/' . $administrator->user->photo }}"
+                                src="{{ asset('images/') . $administrator->user->photo }}"
                                 alt="user-avatar"
                                 class="d-block rounded"
                                 height="100"

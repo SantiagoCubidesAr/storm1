@@ -30,7 +30,7 @@
                 <div class="row">
                     <div class="card-body">
                         <div class="d-flex align-items-start align-items-sm-center gap-4">
-                            <img src="{{ asset('images/no-photo.png') }}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
+                            <img src="{{ url('images/no-photo.png') }}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
                             <div class="button-wrapper">
                                 <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
                                     <span class="d-none d-sm-block">Subir foto</span>
@@ -69,7 +69,7 @@
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="phoneNumber">Phone Number</label>
                         <div class="input-group input-group-merge">
-                            <input type="text" id="phoneNumber" name="phone" class="form-control">
+                            <input type="number" id="phoneNumber" name="phone" class="form-control">
                         </div>
                     </div>
                     <div class="mb-3 col-md-6">
@@ -80,13 +80,31 @@
                         <label for="state" class="form-label">Email</label>
                         <input class="form-control" type="email" id="state" name="email">
                     </div>
-                    <div class="mb-3 col-md-6">
-                        <label for="state" class="form-label">Contraseña</label>
-                        <input class="form-control" type="text" id="state" name="password">
+                    <div class="mb-3 col-md-6 form-password-toggle">
+                        <label class="form-label" for="password">Contraseña</label>
+                        <div class="input-group input-group-merge">
+                            <input
+                                type="password"
+                                id="password"
+                                class="form-control"
+                                name="password"
+                                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                aria-describedby="password" />
+                            <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                        </div>
                     </div>
-                    <div class="mb-3 col-md-6">
-                        <label for="state" class="form-label">Verificar Contraseña</label>
-                        <input class="form-control" type="text" id="state" name="password_confirmation">
+                    <div class="mb-3 col-md-6 form-password-toggle">
+                        <label class="form-label" for="password">Verificar Contraseña</label>
+                        <div class="input-group input-group-merge">
+                            <input
+                                type="password"
+                                id="password"
+                                class="form-control"
+                                name="password_confirmation"
+                                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                aria-describedby="password" />
+                            <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                        </div>
                     </div>
                     <div class="mt-2">
                         <button type="submit" class="btn btn-primary me-2">Añadir Administrador</button>
