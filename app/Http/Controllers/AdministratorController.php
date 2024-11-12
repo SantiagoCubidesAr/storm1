@@ -19,11 +19,6 @@ class AdministratorController extends Controller
         return view('dashboard')->with('administrators', $administrators);
     }
 
-    // public function show(User $user)
-    // {
-    //     return view('students.show')->with('user', $user);
-    // }
-
     public function create()
     {
         $roles = Role::all();
@@ -66,21 +61,17 @@ class AdministratorController extends Controller
 
     public function show($id)
     {
-        $administrator = Administrator::findOrFail($id);
-        return view('administrators.show')->with('administrator', $administrator);
+        $user = User::with('administrator', 'roles', 'status', 'genders')->findOrFail($id);
+        return view('administrators.show')->with('administrator', $user->administrator);
     }
 
-    // public function edit(User $user)
-    // {
-    //     return view('students.edit')->with('user', $user);
-    // }
     public function edit($id)
     {
         $roles = Role::all();
         $status = Status::all();
         $genders = Gender::all();
-        $administrator = Administrator::findOrFail($id);
-        return view('administrators.edit')->with('administrator', $administrator)->with('roles', $roles)->with('genders', $genders)->with('status', $status);
+        $user = User::findOrFail($id);
+        return view('administrators.edit')->with('administrator', $user->administrator)->with('roles', $roles)->with('genders', $genders)->with('status', $status);
     }
 
     /**
@@ -88,7 +79,7 @@ class AdministratorController extends Controller
      */
     public function update(AdministratorRequest $request, $id)
     {
-        $administrator = Administrator::findOrFail($id);
+        $administrator = User::findOrFail($id);
         if ($request->hasFile('photo')) {
             if ($request->hasFile('photo')) {
                 $photo = time() . '.' . $request->photo->extension();
@@ -98,7 +89,7 @@ class AdministratorController extends Controller
             $photo = $request->originphoto;
         }
 
-        $administrator->user->update([
+        $administrator->update([
             'fullname' => $request->fullname,
             'id_status' => $request->id_status,
             'id_gender' => $request->id_gender,
@@ -107,18 +98,6 @@ class AdministratorController extends Controller
             'phone' => $request->phone,
             'email' => $request->email
         ]);
-        // $user->status = $request->status;
-        // $user->fullname = $request->fullname;
-        // $user->gender = $request->gender;
-        // $user->address = $request->address;
-        // $user->photo = $photo;
-        // $user->phone = $request->phone;
-        // $user->email = $request->email;
-        // $user->password = $user->password;
-
-        // if ($user->save()) {
-        //     return redirect('dashboard')->with('message', 'The user: ' . $user->fullname . 'was successfully updated!');
-        // }
         return redirect('dashboard')->with('message', 'The user: ' . $administrator->fullname . 'was successfully updated!');
     }
 

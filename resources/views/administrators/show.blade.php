@@ -27,20 +27,21 @@
                 </div>
                 <div class="mb-3 col-md-6">
                     <label for="firstName" class="form-label">Roles</label>
-                    <input class="form-control" type="text" id="firstName" name="fullname" value="{{ $administrator->user->roles->first()->name }}" readonly>
+                    <input class="form-control" type="text" id="firstName" name="fullname" value="{{ optional($administrator->user->roles->first())->name ?? 'No Role' }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label for="firstName" class="form-label">Full Name</label>
-                    <input class="form-control" type="text" id="firstName" name="fullname" value="{{ $administrator->user->fullname }}" readonly>
+                    <input class="form-control" type="text" id="firstName" name="fullname" value="{{ $administrator->user->fullname ?? 'N/A' }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label for="lastName" class="form-label">Estado</label>
-                    <input class="form-control" type="text" name="status" id="lastName" value="{{ $administrator->user->status->status }}" readonly>
+                    <input class="form-control" type="text" name="status" id="lastName" value="{{ optional($administrator->user->status)->status ?? 'Unknown' }}" readonly>
                 </div>
                 <div class="mb-3 col-md-6">
                     <label for="organization" class="form-label">Gender</label>
-                    <input type="text" class="form-control" id="organization" name="gender" value="{{ $administrator->user->genders->gender }}" readonly>
+                    <input type="text" class="form-control" id="organization" name="gender" value="{{ optional($administrator->user->genders)->gender ?? 'Unknown' }}" readonly>
                 </div>
+
                 <div class="mb-3 col-md-6">
                     <label class="form-label" for="phoneNumber">Phone Number</label>
                     <div class="input-group input-group-merge">
@@ -56,8 +57,8 @@
                     <input class="form-control" type="email" id="state" name="email" value="{{ $administrator->user->email }}" readonly>
                 </div>
                 <div class="mt-2">
-                        <a href="{{ url('dashboard')}}" class="btn btn-outline-secondary">Atras</a>
-                    </div>
+                    <a href="{{ url('dashboard')}}" class="btn btn-outline-secondary">Atras</a>
+                </div>
             </div>
 
 
