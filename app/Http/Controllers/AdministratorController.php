@@ -15,8 +15,11 @@ class AdministratorController extends Controller
     //
     public function index()
     {
-        $administrators = Administrator::with('user')->get();
-        return view('dashboard')->with('administrators', $administrators);
+        $administrators = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Administrador');
+        })->get();
+    
+        return view('dashboard', compact('administrators'));
     }
 
     public function create()
