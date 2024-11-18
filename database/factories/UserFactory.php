@@ -12,19 +12,21 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+
 class UserFactory extends Factory
 {
     const ROLES = ['Conductor', 'Estudiante', 'Administrador', 'Tutor'];
     protected static ?string $password;
     public function definition(): array
     {
-        $status = fake()->randomElement(array(1,2));
+        $status = fake()->randomElement(array(1, 2));
         $photo = fake()->image(public_path('images'), 140, 140, null, false);
+        $photo = $photo ? $photo : 'no-image.png';
         return [
             'id_status' => $status,
             'fullname' => fake()->name(),
             'photo' => $photo,
-            'id_gender' => fake()->randomElement([1,2]),
+            'id_gender' => fake()->randomElement([1, 2]),
             'address' => fake()->address(),
             'phone' => fake()->phoneNumber(),
             'email' => fake()->unique()->safeEmail(),

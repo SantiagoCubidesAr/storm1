@@ -52,22 +52,33 @@
             });
         })
 
-        $('body').on('keyup', '#qsearch', function(e) {
-            e.preventDefault()
-            $query = $(this).val()
-            $token = $('input[name=_token]').val()
-            $model = 'administrators';
+        $(document).ready(function () {
+        // Extraer el modelo de la URL actual
+        let path = window.location.pathname.split('/');
+        let model = path[1]; // Obtener la primera parte de la URL (e.g., 'administrators')
 
+        // Verificar que el modelo esté en la lista permitida
+        const validModels = ['administrators', 'students', 'drivers', 'tutors'];
+        if (!validModels.includes(model)) {
+            model = 'administrators'; // Valor por defecto si no se encuentra un modelo válido
+        }
 
-            $.post($model + '/search', {
-                    q: $query,
-                    _token: $token
+        // Manejar el evento keyup para la búsqueda
+        $('body').on('keyup', '#qsearch', function (e) {
+            e.preventDefault();
+            let query = $(this).val();
+            let token = $('input[name=_token]').val();
+
+            $.post(`/${model}/search`, {
+                    q: query,
+                    _token: token
                 },
-                function(data) {
-                    $('.card').html(data)
+                function (data) {
+                    $('.card').html(data);
                 }
-            )
-        })
+            );
+        });
+    });
 </script>
 </body>
 

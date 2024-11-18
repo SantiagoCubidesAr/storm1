@@ -63,7 +63,6 @@ class TutorController extends Controller
             $tutor_id->save();
             return redirect('tutors')->with('message', 'The user: ' . $tutor->fullname . 'was successfully added');
         }
-
     }
 
     public function show($id)
@@ -127,13 +126,17 @@ class TutorController extends Controller
     public function destroy($id)
     {
         $tutor = User::findOrFail($id);
-        if($tutor->delete()) {
-            return redirect('tutors')->with('message', 'The user:'. $tutor->fullname . 'was successfully deleted!');
+        if ($tutor->delete()) {
+            return redirect('tutors')->with('message', 'The user:' . $tutor->fullname . 'was successfully deleted!');
         }
     }
 
-    public function search(Request $request){
-        $tutors = User::names($request->q)->paginate(20);
-        return view('tutors.search')->with('tutors', $tutors);
+    public function search(Request $request)
+    {
+        $query = $request->q;
+        $tutors = User::query()->tutor()->names($request->q)->paginate(20);
+
+
+        return view('tutors.search', compact('tutors'));
     }
 }

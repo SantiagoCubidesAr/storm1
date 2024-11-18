@@ -18,7 +18,7 @@ class AdministratorController extends Controller
         $administrators = User::whereHas('roles', function ($query) {
             $query->where('name', 'Administrador');
         })->get();
-    
+
         return view('dashboard', compact('administrators'));
     }
 
@@ -114,7 +114,8 @@ class AdministratorController extends Controller
 
     public function search(Request $request)
     {
-        $administrator = User::names($request->q)->paginate(20);
-        return view('administrators.search')->with('administrators', $administrator);
+        $query = $request->q;
+        $administrators = User::admin()->names($query)->paginate(20);
+        return view('administrators.search', compact('administrators'));
     }
 }

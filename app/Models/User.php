@@ -78,9 +78,50 @@ class User extends Authenticatable
         return $this->belongsTo(Status::class, 'id_status');
     }
 
-    public function scopeNames($users, $q) {
+    public function scopeNames($query, $q)
+    {
         if (trim($q)) {
-            $users->where('fullname', 'LIKE', "%$q%");
+            $query->where('fullname', 'LIKE', "%$q%");
         }
+    }
+
+    /**
+     * Scope para filtrar usuarios administradores.
+     */
+    public function scopeAdmin($query)
+    {
+        return $query->whereHas('roles', function ($q) {
+            $q->where('name', 'Administrador');
+        });
+    }
+
+    /**
+     * Scope para filtrar usuarios estudiantes.
+     */
+    public function scopeStudent($query)
+    {
+        return $query->whereHas('roles', function ($q) {
+            $q->where('name', 'Estudiante');
+        });
+    }
+
+    /**
+     * Scope para filtrar usuarios conductores.
+     */
+    public function scopeDriver($query)
+    {
+        return $query->whereHas('roles', function ($q) {
+            $q->where('name', 'Conductor');
+        });
+    }
+
+    /**
+     * Scope para filtrar usuarios tutores.
+     */
+    public function scopeTutor($query)
+    {
+        return $query->whereHas('roles', function ($q) {
+            $q->where('name', 'Tutor');
+        });
     }
 }
