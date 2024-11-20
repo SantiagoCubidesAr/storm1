@@ -20,7 +20,7 @@
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Usuarios /</span> Tutores</h4>
 
             <div class="d-flex justify-content-center mb-3">
-                <a href="{{ url('students/create') }}" class="btn btn-primary">+ Add Tutor</a>
+                <a href="{{ url('tutors/create') }}" class="btn btn-primary">+ Add Tutor</a>
             </div>
             <!-- Basic Bootstrap Table -->
             <div class="card">
@@ -42,7 +42,7 @@
                                 <td>
                                     <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                                         <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="" data-bs-original-title="Christina Parker">
-                                            <img src="{{ asset('public/images'). '/' . $tutor->photo }}" alt="Avatar" class="rounded-circle">
+                                            <img src="{{ url('images/' . $tutor->photo) }}" alt="Avatar" class="rounded-circle">
                                         </li>
                                     </ul>
                                 </td>

@@ -3,27 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TutorRequest;
+use App\Models\Tutor;
 use App\Models\Gender;
 use App\Models\Role;
 use App\Models\Status;
-use App\Models\Tutor;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class TutorController extends Controller
 {
+    //
     public function index()
     {
         $tutors = User::whereHas('roles', function ($query) {
             $query->where('name', 'Tutor');
         })->get();
-        return view('tutors.index')->with('tutors', $tutors);
-    }
 
-    // public function show(User $user)
-    // {
-    //     return view('students.show')->with('user', $user);
-    // }
+        return view('tutors.index', compact('tutors'));
+    }
 
     public function create()
     {
@@ -67,21 +64,17 @@ class TutorController extends Controller
 
     public function show($id)
     {
-        $tutor = User::findOrFail($id);
-        return view('tutors.show')->with('tutor', $tutor);
+        $user = User::with('tutor', 'roles', 'status', 'genders')->findOrFail($id);
+        return view('tutors.show')->with('tutor', $user->tutor);
     }
 
-    // public function edit(User $user)
-    // {
-    //     return view('students.edit')->with('user', $user);
-    // }
     public function edit($id)
     {
         $roles = Role::all();
         $status = Status::all();
         $genders = Gender::all();
-        $tutor = User::findOrFail($id);
-        return view('tutors.edit')->with('user', $tutor)->with('roles', $roles)->with('genders', $genders)->with('status', $status);
+        $user = User::findOrFail($id);
+        return view('tutors.edit')->with('tutor', $user->tutor)->with('roles', $roles)->with('genders', $genders)->with('status', $status);
     }
 
     /**
@@ -100,26 +93,14 @@ class TutorController extends Controller
         }
 
         $tutor->update([
-            'status' => $request->status,
             'fullname' => $request->fullname,
-            'gender' => $request->gender,
+            'id_status' => $request->id_status,
+            'id_gender' => $request->id_gender,
             'address' => $request->address,
             'photo' => $photo,
             'phone' => $request->phone,
             'email' => $request->email
         ]);
-        // $user->status = $request->status;
-        // $user->fullname = $request->fullname;
-        // $user->gender = $request->gender;
-        // $user->address = $request->address;
-        // $user->photo = $photo;
-        // $user->phone = $request->phone;
-        // $user->email = $request->email;
-        // $user->password = $user->password;
-
-        // if ($user->save()) {
-        //     return redirect('dashboard')->with('message', 'The user: ' . $user->fullname . 'was successfully updated!');
-        // }
         return redirect('tutors')->with('message', 'The user: ' . $tutor->fullname . 'was successfully updated!');
     }
 
@@ -127,16 +108,14 @@ class TutorController extends Controller
     {
         $tutor = User::findOrFail($id);
         if ($tutor->delete()) {
-            return redirect('tutors')->with('message', 'The user:' . $tutor->fullname . 'was successfully deleted!');
+            return redirect('tutors.index')->with('message', 'The user:' . $tutor->fullname . 'was successfully deleted!');
         }
     }
 
     public function search(Request $request)
     {
         $query = $request->q;
-        $tutors = User::query()->tutor()->names($request->q)->paginate(20);
-
-
+        $tutors = User::query()->tutor()->names($query)->paginate(20);
         return view('tutors.search', compact('tutors'));
     }
 }
