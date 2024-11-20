@@ -17,7 +17,7 @@
 
         <!-- Content -->
 
-        <h5 class="card-header">Detalles Estudiante</h5>
+        <h5 class="card-header">Actualizar Administrador</h5>
 
         <div class="card-body">
             <form action="{{ url('administrators/' .$administrator->user->id)}}" id="formAccountSettings" method="POST" enctype="multipart/form-data">

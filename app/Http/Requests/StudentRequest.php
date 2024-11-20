@@ -25,18 +25,17 @@ class StudentRequest extends FormRequest
         if ($this->method() === 'PUT') {
             return [
                 'fullname' => 'required|string',
-                'status'   => 'required|string',
-                'gender'   => 'required|string',
+                'id_status'   => 'required|string',
+                'id_gender'   => 'required|string',
                 'phone'    => 'required',
                 'address'  => 'required|string',
                 'email'    => 'required|string|lowercase|email',
-
             ];
         } else {
             return [
                 'fullname' => ['required', 'string', 'unique:'.User::class],
-                'gender' => ['required', 'string'],
-                'status' => ['required', 'string'],
+                'id_gender' => ['required', 'string'],
+                'id_status' => ['required', 'string'],
                 'phone' => ['required'],
                 'address' => ['required', 'date'],
                 'photo' => ['required', 'image'],

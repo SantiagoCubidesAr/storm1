@@ -19,10 +19,13 @@
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Usuarios /</span> Conductores</h4>
 
+            <div class="d-flex justify-content-center mb-3">
+                <a href="{{ url('drivers/create') }}" class="btn btn-primary">+ Add Conductor</a>
+            </div>
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <h5 class="card-header">Conductores</h5>
-                <div class="table-responsive text-nowrap">
+                <div class="table-responsive text-nowrap vh-100">
                     <table class="table">
                         <thead>
                             <tr>
@@ -39,7 +42,7 @@
                                 <td>
                                     <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                                         <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="" data-bs-original-title="Christina Parker">
-                                            <img src="{{ asset('images'). '/' . $driver->photo }}" alt="Avatar" class="rounded-circle">
+                                            <img src="{{ url('images/' . $driver->photo) }}" alt="Avatar" class="rounded-circle">
                                         </li>
                                     </ul>
                                 </td>
@@ -52,7 +55,11 @@
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item" href="{{ url('drivers/' . $driver->id) }}"><i class="bx bx-show me-1"></i> Ver</a>
                                             <a class="dropdown-item" href="{{ url('drivers/' . $driver->id . '/edit') }}"><i class="bx bx-edit-alt me-1"></i> Actualizar</a>
-                                            <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i>Eliminar</a>
+                                            <a class="dropdown-item delete" href="javascript:;"><i class="bx bx-trash me-1" data-fullname="{{ $driver->fullname }}"></i>Eliminar</a>
+                                            <form action="{{ url('drivers/' . $driver->id) }}" method="post" style="display: none">
+                                                @csrf
+                                                @method('delete')
+                                            </form>
                                         </div>
                                     </div>
                                 </td>
@@ -62,7 +69,6 @@
                     </table>
                 </div>
             </div>
-            <!--/ Basic Bootstrap Table -->
 
         </div>
 

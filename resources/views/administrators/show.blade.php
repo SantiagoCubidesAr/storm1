@@ -17,7 +17,7 @@
 
         <!-- Content -->
 
-        <h5 class="card-header">Studnet Details</h5>
+        <h5 class="card-header">Detalles Administrador</h5>
         <div class="card-body">
             <div class="row">
                 <div class="card-body">

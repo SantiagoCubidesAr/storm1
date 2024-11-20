@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DriverRequest;
+use App\Http\Requests\TutorRequest;
 use App\Models\Driver;
 use App\Models\Gender;
 use App\Models\Role;
@@ -12,18 +12,15 @@ use Illuminate\Http\Request;
 
 class DriverController extends Controller
 {
+    //
     public function index()
     {
         $drivers = User::whereHas('roles', function ($query) {
             $query->where('name', 'Conductor');
         })->get();
-        return view('drivers.index')->with('drivers', $drivers);
-    }
 
-    // public function show(User $user)
-    // {
-    //     return view('students.show')->with('user', $user);
-    // }
+        return view('drivers.index', compact('drivers'));
+    }
 
     public function create()
     {
@@ -63,32 +60,27 @@ class DriverController extends Controller
             $driver_id->save();
             return redirect('drivers')->with('message', 'The user: ' . $driver->fullname . 'was successfully added');
         }
-
     }
 
     public function show($id)
     {
-        $driver = User::findOrFail($id);
-        return view('drivers.show')->with('driver', $driver);
+        $user = User::with('driver', 'roles', 'status', 'genders')->findOrFail($id);
+        return view('drivers.show')->with('driver', $user->driver);
     }
 
-    // public function edit(User $user)
-    // {
-    //     return view('students.edit')->with('user', $user);
-    // }
     public function edit($id)
     {
         $roles = Role::all();
         $status = Status::all();
         $genders = Gender::all();
-        $driver = User::findOrFail($id);
-        return view('drives.edit')->with('driver', $driver)->with('roles', $roles)->with('genders', $genders)->with('status', $status);
+        $user = User::findOrFail($id);
+        return view('drivers.edit')->with('driver', $user->driver)->with('roles', $roles)->with('genders', $genders)->with('status', $status);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(DriverRequest $request, $id)
+    public function update(TutorRequest $request, $id)
     {
         $driver = User::findOrFail($id);
         if ($request->hasFile('photo')) {
@@ -101,39 +93,29 @@ class DriverController extends Controller
         }
 
         $driver->update([
-            'status' => $request->status,
             'fullname' => $request->fullname,
-            'gender' => $request->gender,
+            'id_status' => $request->id_status,
+            'id_gender' => $request->id_gender,
             'address' => $request->address,
             'photo' => $photo,
             'phone' => $request->phone,
             'email' => $request->email
         ]);
-        // $user->status = $request->status;
-        // $user->fullname = $request->fullname;
-        // $user->gender = $request->gender;
-        // $user->address = $request->address;
-        // $user->photo = $photo;
-        // $user->phone = $request->phone;
-        // $user->email = $request->email;
-        // $user->password = $user->password;
-
-        // if ($user->save()) {
-        //     return redirect('dashboard')->with('message', 'The user: ' . $user->fullname . 'was successfully updated!');
-        // }
         return redirect('drivers')->with('message', 'The user: ' . $driver->fullname . 'was successfully updated!');
     }
 
     public function destroy($id)
     {
         $driver = User::findOrFail($id);
-        if($driver->delete()) {
-            return redirect('drivers')->with('message', 'The user:'. $driver->fullname . 'was successfully deleted!');
+        if ($driver->delete()) {
+            return redirect('drivers')->with('message', 'The user:' . $driver->fullname . 'was successfully deleted!');
         }
     }
 
-    public function search(Request $request){
-        $drivers = User::names($request->q)->paginate(20);
-        return view('drivers.search')->with('drivers', $drivers);
+    public function search(Request $request)
+    {
+        $query = $request->q;
+        $drivers = User::query()->driver()->names($query)->paginate(20);
+        return view('drivers.search', compact('drivers'));
     }
 }
