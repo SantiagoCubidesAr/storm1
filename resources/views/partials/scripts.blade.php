@@ -74,7 +74,7 @@
                     _token: token
                 },
                 function (data) {
-                    $('.card').html(data);
+                    $('.container').html(data);
                 }
             );
         });

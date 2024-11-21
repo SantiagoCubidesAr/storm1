@@ -1,45 +1,47 @@
-<div class="card">
-    <div class="table-responsive text-nowrap vh-100">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Foto</th>
-                    <th>Estado</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody class="table-border-bottom-0">
-                @foreach ($administrators as $administrator)
-                <tr>
-                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{$administrator->fullname}}</strong></td>
-                    <td>
-                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="" data-bs-original-title="Christina Parker">
-                                <img src="{{ url('images/' . $administrator->photo)  }}" alt="Avatar" class="rounded-circle">
-                            </li>
-                        </ul>
-                    </td>
-                    <td><span class="badge bg-label-primary me-1">{{$administrator->status->status}}</span></td>
-                    <td>
-                        <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ url('administrators/' . $administrator->id) }}"><i class="bx bx-show me-1"></i> Ver</a>
-                                <a class="dropdown-item" href="{{ url('administrators/' . $administrator->id . '/edit') }}"><i class="bx bx-edit-alt me-1"></i> Actualizar</a>
-                                <a class="dropdown-item delete" href="javascript:;"><i class="bx bx-trash me-1" data-fullname="{{ $administrator->fullname }}"></i>Eliminar</a>
-                                <form action="{{ url('administrators/' . $administrator->id) }}" method="post" style="display: none">
-                                    @csrf
-                                    @method('delete')
-                                </form>
+<div class="container">
+    <div class="row">
+        @foreach($administrators as $administrator)
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="row g-0 align-items-center">
+                    <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        <img class="rounded-circle img-fluid"
+                            src="{{ url('images/' . $administrator->photo) }}"
+                            alt="Avatar of {{ $administrator->fullname }}"
+                            style="width: 120px; height: 120px; object-fit: cover;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">{{ $administrator->fullname }}</h5>
+                            <p class="card-text text-center">
+                                Estado: <span class="badge bg-label-primary">{{ $administrator->status->status }}</span>
+                            </p>
+                            <div class="dropdown text-center">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{{ url('administrators/' . $administrator->id) }}">
+                                        <i class="bx bx-show me-1"></i> Ver
+                                    </a>
+                                    <a class="dropdown-item" href="{{ url('administrators/' . $administrator->id . '/edit') }}">
+                                        <i class="bx bx-edit-alt me-1"></i> Actualizar
+                                    </a>
+                                    <a class="dropdown-item delete" href="javascript:;"
+                                        data-fullname="{{ $administrator->fullname }}">
+                                        <i class="bx bx-trash me-1"></i> Eliminar
+                                    </a>
+                                    <form action="{{ url('administrators/' . $administrator->id) }}" method="post" style="display: none">
+                                        @csrf
+                                        @method('delete')
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
     </div>
 </div>
